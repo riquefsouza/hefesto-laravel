@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
+use App\Http\Controllers\BaseController;
 
 class AdmParameterCategoryController extends BaseController
 {
@@ -19,7 +19,9 @@ class AdmParameterCategoryController extends BaseController
             'Agents of SHIELD'
         ];
 
-        return view('admParameterCategory.index', ['series' => $series]);
+        //$menuItem
+
+        return view('admParameterCategory.index', compact('menuItem'));
     }
 }
 
