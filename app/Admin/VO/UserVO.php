@@ -187,7 +187,7 @@ class UserVO
         $this->active = $value;
     }
 
-        /**
+    /**
      * @return int[]|null
      */
     public function &getAdmIdProfiles()
