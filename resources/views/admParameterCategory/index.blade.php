@@ -15,7 +15,9 @@ List Parameter Categories
         </div>
         <div class="card-body">
             <div class="row">
+                <!--
                 @{await Html.RenderPartialAsync("PanelReport", ViewData["ListReportType"]);}
+                -->
             </div>
         </div>
     </div>
@@ -71,13 +73,8 @@ List Parameter Categories
         </div>
     </div>
 
-    <input type="hidden" id="admParameterCategory_paginationNumber" value="{{ $Model->Paging->PageNumber }}" />
-    <input type="hidden" id="admParameterCategory_paginationSize" value="{{ $Model->Paging->PageSize }}" />
-    <input type="hidden" id="admParameterCategory_paginationSort" value="{{ $Model->Paging->PageSort }}" />
-    <input type="hidden" id="admParameterCategory_columnOrder" value="{{ $Model->Paging->ColumnOrder }}" />
-    <input type="hidden" id="admParameterCategory_columnTitle" value="{{ $Model->Paging->ColumnTitle }}" />
+    {{ $model->nextPageUrl() }}
 
-    @include('shared.panelPagination', ['model' => 'model'])
 
     <table class="table table-sm table-striped table-bordered" id="tableAdmParameterCategory" style="width: 100%">
         <thead>
@@ -88,11 +85,11 @@ List Parameter Categories
             </tr>
         </thead>
         <tbody>
-            @foreach ($item as $Model->Page)
-                <tr id="{{ $item->Id }}" onclick="listAdmParameterCategory.tableRowClick(this);">
-                    <td style="display: none">{{ $item->Id }}</td>
-                    <td>{{ $item->Description }}</td>
-                    <td>{{ $item->Order }}</td>
+            @foreach ($model as $item)
+                <tr id="{{ $item->getIdAttribute() }}" onclick="listAdmParameterCategory.tableRowClick(this);">
+                    <td style="display: none">{{ $item->getIdAttribute() }}</td>
+                    <td>{{ $item->getDescriptionAttribute() }}</td>
+                    <td>{{ $item->getOrderAttribute() }}</td>
                 </tr>
             @endforeach
         </tbody>

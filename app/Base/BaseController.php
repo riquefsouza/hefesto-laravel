@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Base;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
 use App\Base\Models\AlertMessageVO;
+use App\Admin\VO\UserVO;
+use App\Admin\VO\AuthenticatedUserVO;
 use Illuminate\Http\Request;
+use App\Resources\Lang\PtBR\Messages;
 
 class BaseController extends Controller
 {
     //use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    private Request $request;
 
     protected $alertMessage;
 
@@ -21,31 +22,29 @@ class BaseController extends Controller
 
     protected $menuItem;
 
-    public function __construct(Request $request)
+    public function __construct() { }
+
+    protected function loadMessages(Request $request): void
     {
-        $this->request = $request;
+        $this->loadMessagesWithAlertMessage($request, null);
     }
 
-    protected function LoadMessages(): void
-    {
-        $this->LoadMessages(null);
-    }
-
-    protected function LoadMessagesWithAlertMessage(AlertMessageVO $alertMessage): void
+    protected function loadMessagesWithAlertMessage(Request $request,
+        AlertMessageVO|null $alertMessage): void
     {
         if ($alertMessage == null)
             $this->alertMessage = new AlertMessageVO();
         else
             $this->alertMessage = $alertMessage;
 
-        $authenticatedUser = $this->GetAuthenticatedUser();
+        $authenticatedUser = $this->getAuthenticatedUser($request);
 
         if ($authenticatedUser!=null)
         {
             $authenticatedUser->User->Active = true;
             $this->userLogged = $authenticatedUser->User;
 
-            $listMenus = $authenticatedUser->ListAdminMenus();
+            $listMenus = $authenticatedUser->getListAdminMenus();
 
             $this->menuItem = $listMenus;
         } else
@@ -58,20 +57,22 @@ class BaseController extends Controller
 
     }
 
-    public function GetAuthenticatedUser()
+    public function getAuthenticatedUser(Request $request): AuthenticatedUserVO|null
     {
         //AuthenticatedUserVO
-        //if ($request->session()->has('authenticatedUser')) {
-        return $this->request->session()->get('authenticatedUser');
+        if ($request->session()->has('authenticatedUser'))
+            return $request->session()->get('authenticatedUser');
+        else
+            return null;
     }
 
-    public function SetUserAuthenticated(AuthenticatedUserVO $usu): void
+    public function setUserAuthenticated(Request $request, AuthenticatedUserVO $usu): void
     {
-        $this->request->session()->put('authenticatedUser', $usu);
+        $request->session()->put('authenticatedUser', $usu);
     }
 
-    public function RemoveUserAuthenticated(): void
+    public function removeUserAuthenticated(Request $request): void
     {
-        $this->request->session()->forget('authenticatedUser');
+        $request->session()->forget('authenticatedUser');
     }
 }

@@ -277,4 +277,119 @@ class AuthenticatedUserVO implements IComparable
         return $menu;
     }
 
+    public function getUserName(): string
+    {
+        return $this->userName;
+    }
+
+    public function setUserName(string $userName): void
+    {
+        $this->userName = $userName;
+    }
+
+    public function getDisplayName(): string
+    {
+        return $this->displayName;
+    }
+
+    public function setDisplayName(string $displayName): void
+    {
+        $this->displayName = $displayName;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return PermissionVO[]|null
+     */
+    public function &getListPermission()
+    {
+        return $this->listPermission;
+    }
+
+    public function setListPermission(array $listPermission): self
+    {
+        $this->listPermission = $listPermission;
+
+        return $this;
+    }
+
+    /**
+     * @return MenuVO[]|null
+     */
+    public function &getListMenus()
+    {
+        return $this->listMenus;
+    }
+
+    public function setListMenus(array $listMenus): self
+    {
+        $this->listMenus = $listMenus;
+
+        return $this;
+    }
+
+    /**
+     * @return MenuVO[]|null
+     */
+    public function &getListAdminMenus()
+    {
+        return $this->listAdminMenus;
+    }
+
+    public function setListAdminMenus(array $listAdminMenus): self
+    {
+        $this->listAdminMenus = $listAdminMenus;
+
+        return $this;
+    }
+
+    public function getUser(): UserVO
+    {
+        return $this->user;
+    }
+
+    public function setUser(UserVO $user): void
+    {
+        $this->user = $user;
+    }
+
+    public function getModeTest(): bool
+    {
+        return $this->modeTest;
+    }
+
+    public function setModeTest(bool $modeTest): void
+    {
+        $this->modeTest = $modeTest;
+    }
+
+    public function getModeTestLogin(): string
+    {
+        return $this->modeTestLogin;
+    }
+
+    public function setModeTestLogin(string $modeTestLogin): void
+    {
+        $this->modeTestLogin = $modeTestLogin;
+    }
+
+    public function getModeTestLoginVirtual(): string
+    {
+        return $this->modeTestLoginVirtual;
+    }
+
+    public function setModeTestLoginVirtual(string $modeTestLoginVirtual): void
+    {
+        $this->modeTestLoginVirtual = $modeTestLoginVirtual;
+    }
+
 }

@@ -24,10 +24,12 @@ class BasePaged
                 if (strtoupper($paramSort[0]) === "ASC")
                 {
                     //page = page.OrderBy(s => s.GetType().GetProperty(sortFieldName).GetValue(s)).ToList();
+                    asort($page);
                 }
                 else
                 {
                     //page = page.OrderByDescending(s => s.GetType().GetProperty(sortFieldName).GetValue(s)).ToList();
+                    arsort($page);
                 }
             }
         }

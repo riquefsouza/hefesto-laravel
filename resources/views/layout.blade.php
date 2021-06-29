@@ -81,7 +81,7 @@
 
     @endif
 
-    @include('shared.alertMessages', ['alertMessage' => 'alertMessage'])
+    @include('shared.alertMessages', ['alertMessage' => $alertMessage])
 
     <div>
         <main role="main">

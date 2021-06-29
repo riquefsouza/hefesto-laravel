@@ -2,10 +2,10 @@
 
 namespace App\Base\Models;
 
+use App\Http\Controllers\Messages;
+
 class AlertMessageVO
 {
-    public $messages;
-
     /**
      * @var string
      */
@@ -56,9 +56,6 @@ class AlertMessageVO
         $this->InfoMessage = "";
         $this->LightMessage = "";
         $this->DarkMessage = "";
-
-        $spath = __DIR__ . '/lang/pt_BR/messages.php';
-        $this->messages = file_get_contents($spath);
     }
 
     /**
@@ -67,7 +64,7 @@ class AlertMessageVO
     public static function Primary(string $key)
     {
         $vo = new AlertMessageVO();
-        $vo->PrimaryMessage = $vo->messages[$key];
+        $vo->PrimaryMessage = Messages::MESSAGES[$key];
         return $vo;
     }
 
@@ -77,7 +74,7 @@ class AlertMessageVO
     public static function Secondary(string $key)
     {
         $vo = new AlertMessageVO();
-        $vo->SecondaryMessage = $vo->messages[$key];
+        $vo->SecondaryMessage = Messages::MESSAGES[$key];
         return $vo;
     }
 
@@ -87,7 +84,7 @@ class AlertMessageVO
     public static function Success(string $key)
     {
         $vo = new AlertMessageVO();
-        $vo->SuccessMessage = $vo->messages[$key];
+        $vo->SuccessMessage = Messages::MESSAGES[$key];
         return $vo;
     }
 
@@ -97,7 +94,7 @@ class AlertMessageVO
     public static function Danger(string $key)
     {
         $vo = new AlertMessageVO();
-        $vo->DangerMessage = $vo->messages[$key];
+        $vo->DangerMessage = Messages::MESSAGES[$key];
         return $vo;
     }
 
@@ -107,7 +104,7 @@ class AlertMessageVO
     public static function Warning(string $key)
     {
         $vo = new AlertMessageVO();
-        $vo->WarningMessage = $vo->messages[$key];
+        $vo->WarningMessage = Messages::MESSAGES[$key];
         return $vo;
     }
 
@@ -117,7 +114,7 @@ class AlertMessageVO
     public static function Info(string $key)
     {
         $vo = new AlertMessageVO();
-        $vo->InfoMessage = $vo->messages[$key];
+        $vo->InfoMessage = Messages::MESSAGES[$key];
         return $vo;
     }
 
@@ -127,7 +124,7 @@ class AlertMessageVO
     public static function Light(string $key)
     {
         $vo = new AlertMessageVO();
-        $vo->LightMessage = $vo->messages[$key];
+        $vo->LightMessage = Messages::MESSAGES[$key];
         return $vo;
     }
 
@@ -137,8 +134,48 @@ class AlertMessageVO
     public static function Dark(string $key)
     {
         $vo = new AlertMessageVO();
-        $vo->DarkMessage = $vo->messages[$key];
+        $vo->DarkMessage = Messages::MESSAGES[$key];
         return $vo;
+    }
+
+    public function getPrimaryMessage(): string
+    {
+        return $this->PrimaryMessage;
+    }
+
+    public function getSecondaryMessage(): string
+    {
+        return $this->SecondaryMessage;
+    }
+
+    public function getSuccessMessage(): string
+    {
+        return $this->SuccessMessage;
+    }
+
+    public function getDangerMessage(): string
+    {
+        return $this->DangerMessage;
+    }
+
+    public function getWarningMessage(): string
+    {
+        return $this->WarningMessage;
+    }
+
+    public function getInfoMessage(): string
+    {
+        return $this->InfoMessage;
+    }
+
+    public function getLightMessage(): string
+    {
+        return $this->LightMessage;
+    }
+
+    public function getDarkMessage(): string
+    {
+        return $this->DarkMessage;
     }
 
 }
