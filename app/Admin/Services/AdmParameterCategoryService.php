@@ -75,7 +75,12 @@ class AdmParameterCategoryService implements IBaseCrud
      */
     public function insert($obj)
     {
-        return AdmParameterCategory::create($obj);
+        $model = new AdmParameterCategory();
+        $model->fill($obj);
+        $model->save();
+
+        return $model;
+        //return AdmParameterCategory::create($obj);
     }
 
     /**

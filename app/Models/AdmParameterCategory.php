@@ -30,6 +30,13 @@ class AdmParameterCategory extends Model
     protected $appends = ['id', 'description', 'order'];
     protected $fillable = ['id', 'description', 'order'];
 
+    public function __construct()
+    {
+        $this->setIdAttribute(0);
+        $this->setDescriptionAttribute("");
+        $this->setOrderAttribute(null);
+    }
+
     public function admParameters()
     {
         return $this->hasMany(AdmParameter::class);

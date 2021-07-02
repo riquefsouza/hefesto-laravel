@@ -6,7 +6,7 @@ List Parameter Categories
 
 @section('content')
 
-<form id="formListAdmParameterCategory" style="padding: 5px;" asp-action="Edit" method="get">
+<form id="formListAdmParameterCategory" style="padding: 5px;" action="/admParameterCategory" method="get">
 
     <div class="card">
         <div class="card-header"
@@ -15,9 +15,7 @@ List Parameter Categories
         </div>
         <div class="card-body">
             <div class="row">
-                <!--
-                @{await Html.RenderPartialAsync("PanelReport", ViewData["ListReportType"]);}
-                -->
+                @include('shared.panelReport', ['listReportType' => $listReportType])
             </div>
         </div>
     </div>
@@ -54,27 +52,32 @@ List Parameter Categories
             <span class="text">{{ $messages["button.back"] }}</span>
         </button>
     </div>
+</form>
+    <form method="post">
+        @csrf
+        @method('DELETE')
 
-    <div class="modal fade" id="dlgDeleteConfirmation" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel"><span>{{ $messages["dlgDeleteConfirmation.title"] }}</span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>{{ $messages["dlgDeleteConfirmation.text"] }}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" id="btnDelete" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+        <div class="modal fade" id="dlgDeleteConfirmation" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel"><span>{{ $messages["dlgDeleteConfirmation.title"] }}</span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ $messages["dlgDeleteConfirmation.text"] }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-primary" onclick="listAdmParameterCategory.btnDeleteClick(this.form)">Yes</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    {{ $model->nextPageUrl() }}
+    </form>
 
+    @include('shared.panelPagination', ['model' => $model])
 
     <table class="table table-sm table-striped table-bordered" id="tableAdmParameterCategory" style="width: 100%">
         <thead>
@@ -97,7 +100,7 @@ List Parameter Categories
 
     <br>
     <br>
-</form>
+
 
 <script src="/static/js/admin/admParameterCategory/listAdmParameterCategory.js"></script>
 

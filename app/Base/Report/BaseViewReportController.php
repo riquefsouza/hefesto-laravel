@@ -3,7 +3,7 @@
 namespace App\Base\Report;
 
 use App\Base\BaseController;
-use App\Resources\Lang\PtBR\Messages;
+use App\Http\Controllers\Messages;
 
 class BaseViewReportController extends BaseController
 {
@@ -13,20 +13,19 @@ class BaseViewReportController extends BaseController
     public function getListReportType()
     {
         $listaVO = array();
-        $grupoVO = new ReportGroupVO();
         $listaEnum = ReportType::allTypes();
         $subtipos = array();
 
         foreach (ReportType::groups() as $grupo)
         {
             $igrupo = "";
+            $subtipos = [];
 
             foreach ($listaEnum as $item)
             {
                 if ($item->getGroup() === $grupo)
                 {
-                    $subtipos = $item;
-                    break;
+                    array_push($subtipos, $item);
                 }
             }
 
