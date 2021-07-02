@@ -43,56 +43,56 @@
     <button id="btnAlertDark" type="button" class="btn-close" aria-label="Close"></button>
 </div>
 
-@if (strlen(trim($alertMessage->getPrimaryMessage())) > 0)
+@if (!empty($alertMessage->getPrimaryMessage()))
 <div class="alert alert-primary alert-dismissible" role="alert">
     <strong><span>{{ $alertMessage->getPrimaryMessage() }}</span></strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
 
-@if (strlen(trim($alertMessage->getSecondaryMessage())) > 0)
+@if (!empty($alertMessage->getSecondaryMessage()))
 <div class="alert alert-secondary alert-dismissible" role="alert">
     <strong><span>{{ $alertMessage->getSecondaryMessage() }}</span></strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
 
-@if (strlen(trim($alertMessage->getSuccessMessage())) > 0)
+@if (!empty($alertMessage->getSuccessMessage()))
 <div class="alert alert-success alert-dismissible" role="alert">
     <strong><span>{{ $alertMessage->getSuccessMessage() }}</span></strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
 
-@if (strlen(trim($alertMessage->getDangerMessage())) > 0)
+@if (!empty($alertMessage->getDangerMessage()))
 <div class="alert alert-danger alert-dismissible" role="alert">
     <strong><span>{{ $alertMessage->getDangerMessage() }}</span></strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
 
-@if (strlen(trim($alertMessage->getWarningMessage())) > 0)
+@if (!empty($alertMessage->getWarningMessage()))
 <div class="alert alert-warning alert-dismissible" role="alert">
     <strong><span>{{ $alertMessage->getWarningMessage() }}</span></strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
 
-@if (strlen(trim($alertMessage->getInfoMessage())) > 0)
+@if (!empty($alertMessage->getInfoMessage()))
 <div class="alert alert-info alert-dismissible" role="alert">
     <strong><span>{{ $alertMessage->getInfoMessage() }}</span></strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
 
-@if (strlen(trim($alertMessage->getLightMessage())) > 0)
+@if (!empty($alertMessage->getLightMessage()))
 <div class="alert alert-light alert-dismissible" role="alert">
     <strong><span>{{ $alertMessage->getLightMessage() }}</span></strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
 
-@if (strlen(trim($alertMessage->getDarkMessage())) > 0)
+@if (!empty($alertMessage->getDarkMessage()))
 <div class="alert alert-dark alert-dismissible" role="alert">
     <strong><span>{{ $alertMessage->getDarkMessage() }}</span></strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

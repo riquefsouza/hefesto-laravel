@@ -20,4 +20,9 @@ $router->group(['prefix' => '/'], function () use ($router) {
     $router->post('admParameterCategory/save', 'App\Http\Controllers\AdmParameterCategoryController@save')->name('saveAdmParameterCategory');
     $router->delete('admParameterCategory/{id}', 'App\Http\Controllers\AdmParameterCategoryController@delete')->name('deleteAdmParameterCategory');
 
+    $router->get('admParameter', 'App\Http\Controllers\AdmParameterController@index')->name('listAdmParameter');
+    $router->get('admParameter/{id}', 'App\Http\Controllers\AdmParameterController@edit')->name('editAdmParameter');
+    $router->post('admParameter/save', 'App\Http\Controllers\AdmParameterController@save')->name('saveAdmParameter');
+    $router->delete('admParameter/{id}', 'App\Http\Controllers\AdmParameterController@delete')->name('deleteAdmParameter');
+
 });

@@ -6,26 +6,34 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Base\Report\BaseViewReportController;
+use App\Admin\Services\AdmParameterService;
 use App\Admin\Services\AdmParameterCategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Messages;
-use App\Models\AdmParameterCategory;
-use App\Http\Requests\AdmParameterCategoryFormRequest;
+use App\Models\AdmParameter;
+use App\Http\Requests\AdmParameterFormRequest;
 use App\Base\Models\AlertMessageVO;
 
-class AdmParameterCategoryController extends BaseViewReportController
+class AdmParameterController extends BaseViewReportController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * @var AdmParameterCategoryService
+     * @var AdmParameterService
      */
     private $service;
 
-    public function __construct(AdmParameterCategoryService $service)
+    /**
+     * @var AdmParameterCategoryService
+     */
+    private $serviceParameterCategory;
+
+    public function __construct(AdmParameterService $service,
+        AdmParameterCategoryService $serviceParameterCategory)
     {
         $this->service = $service;
+        $this->serviceParameterCategory = $serviceParameterCategory;
     }
 
     private function params(Request $request, $model): array
@@ -38,24 +46,25 @@ class AdmParameterCategoryController extends BaseViewReportController
         $menuItem = $this->menuItem;
         $userLogged = $this->userLogged;
         $listReportType = $this->getListReportType();
+        $listAdmCategories = $this->serviceParameterCategory->findAll();
 
         if ($model!=null)
-            return compact('messages', 'alertMessage',
-                'menuItem', 'userLogged', 'listReportType', 'model');
+            return compact('messages', 'alertMessage', 'menuItem', 'userLogged',
+                'listReportType', 'listAdmCategories', 'model');
         else
-            return compact('messages', 'alertMessage',
-                'menuItem', 'userLogged', 'listReportType');
+            return compact('messages', 'alertMessage', 'menuItem', 'userLogged',
+                'listReportType', 'listAdmCategories');
     }
 
     public function index(Request $request)
     {
         //$route = $request->path();
         //$model = $this->service->getPage($route);
-        $model = AdmParameterCategory::paginate(10);
+        $model = $this->service->findAll();
 
         $params = $this->params($request, $model);
 
-        return view('admParameterCategory.index', $params);
+        return view('admParameter.index', $params);
     }
 
     public function edit(int|null $id, Request $request)
@@ -74,17 +83,17 @@ class AdmParameterCategoryController extends BaseViewReportController
             }
 
             $params = $this->params($request, $model);
-            return view('admParameterCategory.edit', $params);
+            return view('admParameter.edit', $params);
         }
         else
         {
-            $model = new AdmParameterCategory();
+            $model = new AdmParameter();
             $params = $this->params($request, $model);
-            return view('admParameterCategory.edit', $params);
+            return view('admParameter.edit', $params);
         }
     }
 
-    public function save(AdmParameterCategoryFormRequest $request)
+    public function save(AdmParameterFormRequest $request)
     {
         if ($request->model()->getIdAttribute() > 0)
         {
@@ -101,13 +110,13 @@ class AdmParameterCategoryController extends BaseViewReportController
             $this->service->insert($request->all());
         }
 
-        return redirect()->route('listAdmParameterCategory');
+        return redirect()->route('listAdmParameter');
     }
 
     public function delete(int $id, Request $request)
     {
         $this->service->delete($id);
-        return redirect()->route('listAdmParameterCategory');
+        return redirect()->route('listAdmParameter');
     }
 }
 

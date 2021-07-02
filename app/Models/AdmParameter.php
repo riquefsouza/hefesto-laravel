@@ -30,6 +30,15 @@ class AdmParameter extends Model
     protected $appends = ['id', 'code', 'description', 'idParameterCategory', 'value', 'admParameterCategory'];
     protected $fillable = ['id', 'code', 'description', 'idParameterCategory', 'value'];
 
+    public function __construct()
+    {
+        $this->setIdAttribute(0);
+        $this->setCodeAttribute("");
+        $this->setDescriptionAttribute("");
+        $this->setIdParameterCategoryAttribute(1);
+        $this->setValueAttribute(null);
+    }
+
     public function getAdmParameterCategoryAttribute(): AdmParameterCategory
     {
         //return $this->hasOne(AdmParameterCategory::class, 'pmc_seq', 'par_pmc_seq');

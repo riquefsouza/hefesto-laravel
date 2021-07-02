@@ -1,17 +1,16 @@
 @extends('layout')
 
 @section('title')
-List Parameter Categories
+List Parameters
 @endsection
 
 @section('content')
 
-<form id="formListAdmParameterCategory" style="padding: 5px;" action="/admParameterCategory" method="get">
+<form id="formListAdmParameter" style="padding: 5px;" action="/admParameter" method="get">
 
     <div class="card">
-        <div class="card-header"
-             style="font-weight: bold;font-size: large;">
-            <span id="formTitle">{{ $messages["listAdmParameterCategory.title"] }}</span>
+        <div class="card-header" style="font-weight: bold;font-size: large;">
+            <span id="formTitle">{{ $messages["listAdmParameter.title"] }}</span>
         </div>
         <div class="card-body">
             <div class="row">
@@ -54,46 +53,47 @@ List Parameter Categories
     </div>
 </form>
 
-    <form method="post">
-        @csrf
-        @method('DELETE')
+<form method="post">
+    @csrf
+    @method('DELETE')
 
-        <div class="modal fade" id="dlgDeleteConfirmation" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel"><span>{{ $messages["dlgDeleteConfirmation.title"] }}</span></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>{{ $messages["dlgDeleteConfirmation.text"] }}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        <button type="button" id="btnDelete" class="btn btn-primary" onclick="listAdmParameterCategory.btnDeleteClick(this.form)">Yes</button>
-                    </div>
+    <div class="modal fade" id="dlgDeleteConfirmation" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span>{{ $messages["dlgDeleteConfirmation.title"] }}</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ $messages["dlgDeleteConfirmation.text"] }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" id="btnDelete" class="btn btn-primary" onclick="listAdmParameter.btnDeleteClick(this.form)">Yes</button>
                 </div>
             </div>
         </div>
+    </div>
+</form>
 
-    </form>
-
-    @include('shared.panelPagination', ['model' => $model])
-
-    <table class="table table-sm table-striped table-bordered" id="tableAdmParameterCategory" style="width: 100%">
+    <table class="table table-striped table-bordered" id="tableAdmParameter" style="width: 100%">
         <thead>
             <tr>
                 <th style="display: none">Id</th>
-                <th onclick="listAdmParameterCategory.tableHeaderColumnClick(this, 1, 'Description');">Description  <i class='fas fa-sort-alpha-up fa-sm'></i></th>
-                <th onclick="listAdmParameterCategory.tableHeaderColumnClick(this, 2, 'Order');">Order  <i class='fas fa-sort-alpha-up fa-sm'></i></th>
+                <th style="width: 200px;">Parameter Category</th>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($model as $item)
-                <tr id="{{ $item->getIdAttribute() }}" onclick="listAdmParameterCategory.tableRowClick(this);">
+                <tr id="{{ $item->getIdAttribute() }}" onclick="listAdmParameter.tableRowClick(this);">
                     <td style="display: none">{{ $item->getIdAttribute() }}</td>
+                    <td>{{ $item->getAdmParameterCategoryAttribute()->getDescriptionAttribute() }}</td>
+                    <td>{{ $item->getCodeAttribute() }}</td>
+                    <td>{{ $item->getValueAttribute() }}</td>
                     <td>{{ $item->getDescriptionAttribute() }}</td>
-                    <td>{{ $item->getOrderAttribute() }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -102,7 +102,6 @@ List Parameter Categories
     <br>
     <br>
 
-
-<script src="/static/js/admin/admParameterCategory/listAdmParameterCategory.js"></script>
+<script src="/static/js/admin/admParameter/listAdmParameter.js"></script>
 
 @endsection

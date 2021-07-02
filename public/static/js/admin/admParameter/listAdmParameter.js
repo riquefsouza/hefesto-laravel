@@ -2,57 +2,57 @@ class ListAdmParameter extends HFSSystemUtil {
 	constructor()
 	{
 		super();
-		
+
 		this.hideQueryString();
-		
+
 		this._form = $('#formListAdmParameter');
 		this._cmbReportType = $('#cmbReportType');
-		this._forceDownload = $('#forceDownload');		
+		this._forceDownload = $('#forceDownload');
 		this._dlgDeleteConfirmation = $('#dlgDeleteConfirmation');
 		this._formTitle = $('#formTitle');
 		this._formListAdmParameter = $('#formListAdmParameter');
-		
-		this._tableList = $('#tableAdmParameter');		
+
+		this._tableList = $('#tableAdmParameter');
 		this._dataTableList = this._tableList.DataTable( {
 	        "dom": '<"top"flp>rt<"bottom"i><"clear">',
 			"language": { "url": this.dataTablesLanguageURL }
-	    } );			 
+	    } );
 	    this._selectedRow = '#tableAdmParameter tbody tr.selected';
-		
+
 		$('#btnExport').click(this.btnExportClick.bind(this));
 		$('#btnAdd').click(this.btnAddClick.bind(this));
 		$('#btnEdit').click(this.btnEditClick.bind(this));
 		$('#btnPreDelete').click(this.btnPreDeleteClick.bind(this));
-		$('#btnDelete').click(this.btnDeleteClick.bind(this));
+		//$('#btnDelete').click(this.btnDeleteClick.bind(this));
 		$('#btnBack').click(this.btnBackClick.bind(this));
 	}
-	
+
 	btnExportClick(event) {
 		event.preventDefault();
-		
+
 		var sUrl = this._url + "/export";
-		sUrl += "?reportType=" + this._cmbReportType.val() + 
-				"&forceDownload=" + this._forceDownload[0].checked + 
+		sUrl += "?reportType=" + this._cmbReportType.val() +
+				"&forceDownload=" + this._forceDownload[0].checked +
 				"&params=1,2,3";
-		
+
 		window.open(sUrl,'_blank');
 	}
-	
+
 	btnAddClick(event) {
 		event.preventDefault();
 		this._form[0].action += '/0';
 		this._formListAdmParameter.submit();
 	}
-	
+
 	btnEditClick(event) {
-		event.preventDefault();		
+		event.preventDefault();
 		this.dangerHide();
-		
+
 		var selectedRow = $(this._selectedRow)[0];
-		
-		if (selectedRow && selectedRow.id > 0) {		
-			this._form[0].action+= '/' + selectedRow.id;			
-			this._formListAdmParameter.submit();	
+
+		if (selectedRow && selectedRow.id > 0) {
+			this._form[0].action+= '/' + selectedRow.id;
+			this._formListAdmParameter.submit();
 		} else {
 			this.dangerShow(this._messageSelectTable);
 		}
@@ -62,29 +62,43 @@ class ListAdmParameter extends HFSSystemUtil {
 	btnPreDeleteClick(event) {
 		event.preventDefault();
 		this.dangerHide();
-		
+
 		var selectedRow = $(this._selectedRow)[0];
-		
-		if (selectedRow && selectedRow.id > 0) {		
+
+		if (selectedRow && selectedRow.id > 0) {
 			this._dlgDeleteConfirmation.modal("show");
 		} else {
 			this.dangerShow(this._messageSelectTable);
-		}			
-	}	
+		}
+	}
 
+	btnDeleteClick(formDelete) {
+		var selectedRow = $(this._selectedRow)[0];
+
+		if (selectedRow && selectedRow.id > 0) {
+
+            var url = window.location.href + "/" + selectedRow.id;
+            formDelete.action = url;
+            formDelete.submit();
+
+            this._dlgDeleteConfirmation.modal("hide");
+        }
+    }
+
+/*
 	btnDeleteClick(event) {
 		event.preventDefault();
 		this.dangerHide();
 
 		var selectedRow = $(this._selectedRow)[0];
-		
-		if (selectedRow && selectedRow.id > 0) {		
+
+		if (selectedRow && selectedRow.id > 0) {
 
 			$.ajax({
 				method: "DELETE",
 				url: window.location.href + "/Delete/" + selectedRow.id,
 				dataType: "json",
-			    contentType: "application/json; charset=utf-8",								
+			    contentType: "application/json; charset=utf-8",
 		        context: this
 			})
 			.done(function() {
@@ -94,22 +108,23 @@ class ListAdmParameter extends HFSSystemUtil {
 			.fail(function(xhr){
 	            //alert("An error occured DELETE: " + xhr.status + " " + xhr.statusText);
 				this.dangerShow("An error occured DELETE: " + xhr.status + " " + xhr.statusText);
-	        });			
-			
+	        });
+
 		} else {
 			this.dangerShow(this._messageSelectTable);
 		}
 	}
+*/
 
 	btnBackClick(event) {
 		event.preventDefault();
 		this._anchorHomePage[0].click();
 	}
-	
+
 	tableRowClick(tableRow) {
-		this.sysDataTableRowClick(tableRow, this._dataTableList);  		  		  		
+		this.sysDataTableRowClick(tableRow, this._dataTableList);
 	}
-	
+
 }
 
 const listAdmParameter = new ListAdmParameter();
