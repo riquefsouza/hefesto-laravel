@@ -3,7 +3,7 @@
 namespace App\Admin\Services;
 
 use App\Models\AdmUser;
-use App\Services\AdmUserProfileService;
+use App\Admin\Services\AdmUserProfileService;
 use Illuminate\Database\Eloquent\Collection;
 
 class AdmUserService

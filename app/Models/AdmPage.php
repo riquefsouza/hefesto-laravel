@@ -40,6 +40,15 @@ class AdmPage extends Model
      */
     private $pageProfiles;
 
+    public function __construct()
+    {
+        $this->setIdAttribute(0);
+        $this->setDescriptionAttribute("");
+        $this->setUrlAttribute("");
+        $this->setAdmIdProfilesAttribute([]);
+        $this->setPageProfilesAttribute("");
+    }
+
     public function admMenus()
     {
         return $this->hasMany(AdmMenu::class);

@@ -3,11 +3,16 @@
 namespace App\Admin\Services;
 
 use App\Models\AdmProfile;
-use App\Services\AdmPageProfileService;
-use App\Services\AdmUserProfileService;
+use App\Admin\Services\AdmPageProfileService;
+use App\Admin\Services\AdmUserProfileService;
 use Illuminate\Database\Eloquent\Collection;
+use App\Base\Services\IBaseCrud;
+use App\Base\Pagination\PaginationFilter;
+use App\Base\Pagination\BasePaged;
+use App\Base\Pagination\BasePaging;
 
-class AdmProfileService
+
+class AdmProfileService implements IBaseCrud
 {
     /**
      * @var AdmPageProfileService
@@ -80,4 +85,92 @@ class AdmProfileService
         $item->setProfileUsersAttribute(implode(",", $listProfileUsers));
     }
 
+        /**
+     * @return BasePaged
+     */
+    public function getPage(string $route, PaginationFilter $filter): BasePaged
+    {
+        $validFilter = new PaginationFilter($filter->getPageNumber(), $filter->getSize(),
+            $filter->getSort(), $filter->getColumnOrder(), $filter->getColumnTitle());
+
+        //$pagedData = AdmProfile::paginate(15);
+        $pagedData = AdmProfile::skip(($validFilter->getPageNumber() - 1) * $validFilter->getSize())
+            ->take($validFilter->getSize())->get();
+        //$pagedData = AdmProfile::offset(0)->limit(10)->get();
+        $totalRecords = AdmProfile::count();
+
+        return new BasePaged($pagedData,
+            BasePaging::of($validFilter, $totalRecords, $this->uriService, $route));
+    }
+
+    /**
+     * @return array
+     */
+    public function findAll()
+    {
+        $list = AdmProfile::all();
+        $this->setTransientList($list);
+
+        return $list;
+    }
+
+    /**
+     * @return AdmProfile|null
+     */
+    public function findById(int $id)
+    {
+        $obj = AdmProfile::find($id);
+        if (!is_null($obj)) {
+            $this->setTransient($obj);
+        }
+
+        return $obj;
+
+    }
+
+    /**
+     * @return bool
+     */
+    public function update(int $id, $obj): bool
+    {
+        $model = AdmProfile::find($id);
+        if (is_null($model)) {
+            return false;
+        }
+        $model->fill($obj);
+        $model->save();
+
+        return true;
+    }
+
+    /**
+     * @return AdmProfile
+     */
+    public function insert($obj)
+    {
+        $model = new AdmProfile();
+        $model->fill($obj);
+        $model->save();
+
+        return $model;
+        //return AdmProfile::create($obj);
+    }
+
+    /**
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $qty = AdmProfile::destroy($id);
+        return ($qty !== 0);
+    }
+
+    /**
+     * @return bool
+     */
+    public function exists(int $id): bool
+    {
+        $model = AdmProfile::find($id);
+        return (!is_null($model));
+    }
 }

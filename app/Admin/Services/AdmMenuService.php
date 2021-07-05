@@ -205,7 +205,7 @@ class AdmMenuService
             };
 
             $vo = new MenuItemDTO();
-            $vo->createWithItem($menu->getDescription(), $menu->getUrlAttribute(), $item);
+            $vo->createWithItems($menu->getDescription(), $menu->getUrlAttribute(), $item);
             array_push($lista, $vo);
         };
 
@@ -222,7 +222,7 @@ class AdmMenuService
             };
 
             $vo = new MenuItemDTO();
-            $vo->createWithItem($menu->getDescriptionAttribute(), $menu->getUrlAttribute(), $item);
+            $vo->createWithItems($menu->getDescriptionAttribute(), $menu->getUrlAttribute(), $item);
             array_push($lista, $vo);
         };
 

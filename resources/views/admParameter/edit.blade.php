@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-Edit Parameter Categories
+Edit Parameters
 @endsection
 
 @section('content')
