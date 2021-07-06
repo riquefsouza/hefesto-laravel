@@ -51,6 +51,18 @@ class AdmProfile extends Model
      */
     private $profileUsers;
 
+    public function __construct()
+    {
+        $this->setIdAttribute(0);
+        $this->setAdministratorAttribute("N");
+        $this->setDescriptionAttribute("");
+        $this->setGeneralAttribute("N");
+        $this->setAdmPagesAttribute([]);
+        $this->setAdmUsersAttribute([]);
+        $this->setProfilePagesAttribute("");
+        $this->setProfileUsersAttribute("");
+    }
+
     public function admPageProfiles()
     {
         return $this->hasMany(AdmPageProfile::class);

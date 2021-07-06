@@ -30,4 +30,9 @@ $router->group(['prefix' => '/'], function () use ($router) {
     $router->post('admPage/save', 'App\Http\Controllers\AdmPageController@save')->name('saveAdmPage');
     $router->delete('admPage/{id}', 'App\Http\Controllers\AdmPageController@delete')->name('deleteAdmPage');
 
+    $router->get('admProfile', 'App\Http\Controllers\AdmProfileController@index')->name('listAdmProfile');
+    $router->get('admProfile/{id}', 'App\Http\Controllers\AdmProfileController@edit')->name('editAdmProfile');
+    $router->post('admProfile/save', 'App\Http\Controllers\AdmProfileController@save')->name('saveAdmProfile');
+    $router->delete('admProfile/{id}', 'App\Http\Controllers\AdmProfileController@delete')->name('deleteAdmProfile');
+
 });

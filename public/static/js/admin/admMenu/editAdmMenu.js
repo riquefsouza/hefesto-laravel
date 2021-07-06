@@ -2,22 +2,23 @@ class EditAdmMenu extends HFSSystemUtil {
 	constructor()
 	{
 		super();
-		
+
 		this.hideQueryString();
-		
-		this._page = $('#admMenuView');		
+
+		this._page = $('#admMenuView');
 	}
-	
-	btnCancelClick(event) {
-		event.preventDefault();
-		this._page[0].click();		
+
+	btnCancelClick(sUrl) {
+		window.location.replace(sUrl);
 	}
-	
+
 }
 
+const editAdmMenu = new EditAdmMenu();
+
 $(function() {
-	const editAdmMenu = new EditAdmMenu();
-	
-	$('#btnCancel').click(editAdmMenu.btnCancelClick.bind(editAdmMenu));
-	
+	//const editAdmMenu = new EditAdmMenu();
+
+	//$('#btnCancel').click(editAdmMenu.btnCancelClick.bind(editAdmMenu));
+
 });

@@ -2,22 +2,23 @@ class EditAdmParameter extends HFSSystemUtil {
 	constructor()
 	{
 		super();
-		
+
 		this.hideQueryString();
-		
+
 		this._page = $('#admParameterView');
 	}
-	
-	btnCancelClick(event) {
-		event.preventDefault();
-		this._page[0].click();
+
+	btnCancelClick(sUrl) {
+		window.location.replace(sUrl);
 	}
-	
+
 }
 
+const editAdmParameter = new EditAdmParameter();
+
 $(function() {
-	const editAdmParameter = new EditAdmParameter();
-	
-	$('#btnCancel').click(editAdmParameter.btnCancelClick.bind(editAdmParameter));
-	
+	//const editAdmParameter = new EditAdmParameter();
+
+	//$('#btnCancel').click(editAdmParameter.btnCancelClick.bind(editAdmParameter));
+
 });

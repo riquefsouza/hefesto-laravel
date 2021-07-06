@@ -31,7 +31,8 @@ Edit Pages
                     <span class="text">{{ $messages["button.reset"] }}</span>
                 </button>
 
-                <button type="button" class="btn btn-primary" id="btnCancel">
+                <button type="button" class="btn btn-primary" id="btnCancel"
+                    onclick="editAdmPage.btnCancelClick('{{ route('listAdmPage') }}');">
                     <span class="icon text-white-50">
                         <i class="fa fa-times-circle"></i>
                     </span>

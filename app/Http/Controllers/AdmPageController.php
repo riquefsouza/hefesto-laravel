@@ -48,7 +48,7 @@ class AdmPageController extends BaseViewReportController
         $this->listAllAdmProfiles = array();
     }
 
-    private function params(Request $request, $model, bool $bEdit): array
+    private function params(Request $request, $model): array
     {
         $messages = Messages::MESSAGES;
 
@@ -89,7 +89,7 @@ class AdmPageController extends BaseViewReportController
             {
                 foreach ($profile->getAdmPagesAttribute() as $page)
                 {
-                    if ($page === $bean)
+                    if ($page->getIdAttribute() === $bean->getIdAttribute())
                     {
                         array_push($listAdmProfilesSelected, $profile);
                         break;
@@ -123,7 +123,7 @@ class AdmPageController extends BaseViewReportController
         //$model = $this->service->getPage($route);
         $model = $this->service->findAll();
 
-        $params = $this->params($request, $model, false);
+        $params = $this->params($request, $model);
 
         return view('admPage.index', $params);
     }
@@ -147,7 +147,7 @@ class AdmPageController extends BaseViewReportController
             $listSourceAdmProfiles = $this->dualListAdmProfile->getSource();
             $listTargetAdmProfiles = $this->dualListAdmProfile->getTarget();
 
-            $params = $this->params($request, $model, true);
+            $params = $this->params($request, $model);
             $params['listSourceAdmProfiles'] = $listSourceAdmProfiles;
             $params['listTargetAdmProfiles'] = $listTargetAdmProfiles;
             return view('admPage.edit', $params);
@@ -156,11 +156,11 @@ class AdmPageController extends BaseViewReportController
         {
             $model = new AdmPage();
 
-            $this->dualListAdmProfile = $this->loadAdmProfiles($model, true);
+            $this->dualListAdmProfile = $this->loadAdmProfiles($model, false);
             $listSourceAdmProfiles = $this->dualListAdmProfile->getSource();
             $listTargetAdmProfiles = $this->dualListAdmProfile->getTarget();
 
-            $params = $this->params($request, $model, false);
+            $params = $this->params($request, $model);
             $params['listSourceAdmProfiles'] = $listSourceAdmProfiles;
             $params['listTargetAdmProfiles'] = $listTargetAdmProfiles;
             return view('admPage.edit', $params);

@@ -2,22 +2,23 @@ class EditAdmParameterCategory extends HFSSystemUtil {
 	constructor()
 	{
 		super();
-		
+
 		this.hideQueryString();
-		
+
 		this._page = $('#admParameterCategoryView');
 	}
-	
-	btnCancelClick(event) {
-		event.preventDefault();
-		this._page[0].click();
+
+	btnCancelClick(sUrl) {
+		window.location.replace(sUrl);
 	}
-	
+
 }
 
+const editAdmParameterCategory = new EditAdmParameterCategory();
+
 $(function() {
-	const editAdmParameterCategory = new EditAdmParameterCategory();
-	
-	$('#btnCancel').click(editAdmParameterCategory.btnCancelClick.bind(editAdmParameterCategory));
-	
+	//const editAdmParameterCategory = new EditAdmParameterCategory();
+
+	//$('#btnCancel').click(editAdmParameterCategory.btnCancelClick.bind(editAdmParameterCategory));
+
 });

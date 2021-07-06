@@ -2,22 +2,23 @@ class EditAdmUser extends HFSSystemUtil {
 	constructor()
 	{
 		super();
-		
+
 		this.hideQueryString();
-		
-		this._page = $('#admUserView');	
+
+		this._page = $('#admUserView');
 	}
-	
-	btnCancelClick(event) {
-		event.preventDefault();
-		this._page[0].click();		
+
+	btnCancelClick(sUrl) {
+		window.location.replace(sUrl);
 	}
-	
+
 }
 
+const editAdmUser = new EditAdmUser();
+
 $(function() {
-	const editAdmUser = new EditAdmUser();
-	
-	$('#btnCancel').click(editAdmUser.btnCancelClick.bind(editAdmUser));
-	
+	//const editAdmUser = new EditAdmUser();
+
+	//$('#btnCancel').click(editAdmUser.btnCancelClick.bind(editAdmUser));
+
 });
