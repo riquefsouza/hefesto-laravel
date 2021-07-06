@@ -37,6 +37,15 @@ class AdmMenu extends Model
      */
     private $admSubMenus;
 
+    public function __construct()
+    {
+        $this->setIdAttribute(0);
+        $this->setDescriptionAttribute("");
+        $this->setIdMenuParentAttribute(null);
+        $this->setIdPageAttribute(null);
+        $this->setOrderAttribute(null);
+    }
+
     public function getAdmPageAttribute(): AdmPage | null
     {
         return AdmPage::find($this->getIdPageAttribute());

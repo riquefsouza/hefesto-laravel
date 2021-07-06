@@ -35,4 +35,14 @@ $router->group(['prefix' => '/'], function () use ($router) {
     $router->post('admProfile/save', 'App\Http\Controllers\AdmProfileController@save')->name('saveAdmProfile');
     $router->delete('admProfile/{id}', 'App\Http\Controllers\AdmProfileController@delete')->name('deleteAdmProfile');
 
+    $router->get('admMenu', 'App\Http\Controllers\AdmMenuController@index')->name('listAdmMenu');
+    $router->get('admMenu/{id}', 'App\Http\Controllers\AdmMenuController@edit')->name('editAdmMenu');
+    $router->post('admMenu/save', 'App\Http\Controllers\AdmMenuController@save')->name('saveAdmMenu');
+    $router->delete('admMenu/{id}', 'App\Http\Controllers\AdmMenuController@delete')->name('deleteAdmMenu');
+
+    $router->get('admUser', 'App\Http\Controllers\AdmUserController@index')->name('listAdmUser');
+    $router->get('admUser/{id}', 'App\Http\Controllers\AdmUserController@edit')->name('editAdmUser');
+    $router->post('admUser/save', 'App\Http\Controllers\AdmUserController@save')->name('saveAdmUser');
+    $router->delete('admUser/{id}', 'App\Http\Controllers\AdmUserController@delete')->name('deleteAdmUser');
+
 });

@@ -118,7 +118,6 @@ class AdmUserService implements IBaseCrud
         }
 
         return $obj;
-
     }
 
     /**

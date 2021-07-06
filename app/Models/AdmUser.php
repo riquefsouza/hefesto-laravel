@@ -58,6 +58,21 @@ class AdmUser extends Model
      */
     private $confirmNewPassword;
 
+    public function __construct()
+    {
+        $this->setIdAttribute(0);
+        $this->setActiveAttribute("N");
+        $this->setEmailAttribute(null);
+        $this->setLoginAttribute("");
+        $this->setNameAttribute("");
+        $this->setPasswordAttribute("");
+        $this->setAdmIdProfilesAttribute([]);
+        $this->setUserProfilesAttribute("");
+        $this->setCurrentPasswordAttribute("");
+        $this->setNewPasswordAttribute("");
+        $this->setConfirmNewPasswordAttribute("");
+    }
+
     public function admUserProfiles()
     {
         return $this->hasMany(AdmUserProfile::class);
