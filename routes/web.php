@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 $router->group(['prefix' => '/'], function () use ($router) {
 
+    $router->get('', 'App\Http\Controllers\HomeController@index')->name('showHome');
+    $router->get('login', 'App\Http\Controllers\LoginController@index')->name('showLogin');
+    $router->get('accessDenied', 'App\Http\Controllers\AccessDeniedController@index')->name('showAccessDenied');
+
+    $router->get('changePassword', 'App\Http\Controllers\ChangePasswordController@index')->name('showChangePassword');
+    $router->post('changePassword/save', 'App\Http\Controllers\ChangePasswordController@save')->name('saveChangePassword');
+
     $router->get('admParameterCategory', 'App\Http\Controllers\AdmParameterCategoryController@index')->name('listAdmParameterCategory');
     $router->get('admParameterCategory/{id}', 'App\Http\Controllers\AdmParameterCategoryController@edit')->name('editAdmParameterCategory');
     $router->post('admParameterCategory/save', 'App\Http\Controllers\AdmParameterCategoryController@save')->name('saveAdmParameterCategory');

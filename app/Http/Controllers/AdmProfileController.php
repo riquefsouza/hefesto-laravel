@@ -187,6 +187,27 @@ class AdmProfileController extends BaseViewReportController
         return $this->dualListAdmUser;
     }
 
+    private function fillLists(Request $request,
+        AdmProfile $model, bool $bEdit): array
+    {
+        $this->dualListAdmPage = $this->loadAdmPages($model, $bEdit);
+        $listSourceAdmPages = $this->dualListAdmPage->getSource();
+        $listTargetAdmPages = $this->dualListAdmPage->getTarget();
+
+        $this->dualListAdmUser = $this->loadAdmUsers($model, $bEdit);
+        $listSourceAdmUsers = $this->dualListAdmUser->getSource();
+        $listTargetAdmUsers = $this->dualListAdmUser->getTarget();
+
+        $params = $this->params($request, $model);
+        $params['listSourceAdmPages'] = $listSourceAdmPages;
+        $params['listTargetAdmPages'] = $listTargetAdmPages;
+
+        $params['listSourceAdmUsers'] = $listSourceAdmUsers;
+        $params['listTargetAdmUsers'] = $listTargetAdmUsers;
+
+        return $params;
+    }
+
     public function index(Request $request)
     {
         //$route = $request->path();
@@ -213,20 +234,7 @@ class AdmProfileController extends BaseViewReportController
                 return Response::HTTP_NOT_FOUND;
             }
 
-            $this->dualListAdmPage = $this->loadAdmPages($model, true);
-            $listSourceAdmPages = $this->dualListAdmPage->getSource();
-            $listTargetAdmPages = $this->dualListAdmPage->getTarget();
-
-            $this->dualListAdmUser = $this->loadAdmUsers($model, true);
-            $listSourceAdmUsers = $this->dualListAdmUser->getSource();
-            $listTargetAdmUsers = $this->dualListAdmUser->getTarget();
-
-            $params = $this->params($request, $model);
-            $params['listSourceAdmPages'] = $listSourceAdmPages;
-            $params['listTargetAdmPages'] = $listTargetAdmPages;
-
-            $params['listSourceAdmUsers'] = $listSourceAdmUsers;
-            $params['listTargetAdmUsers'] = $listTargetAdmUsers;
+            $params = $this->fillLists($request, $model, true);
 
             return view('admProfile.edit', $params);
         }
@@ -234,20 +242,7 @@ class AdmProfileController extends BaseViewReportController
         {
             $model = new AdmProfile();
 
-            $this->dualListAdmPage = $this->loadAdmPages($model, false);
-            $listSourceAdmPages = $this->dualListAdmPage->getSource();
-            $listTargetAdmPages = $this->dualListAdmPage->getTarget();
-
-            $this->dualListAdmUser = $this->loadAdmUsers($model, false);
-            $listSourceAdmUsers = $this->dualListAdmUser->getSource();
-            $listTargetAdmUsers = $this->dualListAdmUser->getTarget();
-
-            $params = $this->params($request, $model);
-            $params['listSourceAdmPages'] = $listSourceAdmPages;
-            $params['listTargetAdmPages'] = $listTargetAdmPages;
-
-            $params['listSourceAdmUsers'] = $listSourceAdmUsers;
-            $params['listTargetAdmUsers'] = $listTargetAdmUsers;
+            $params = $this->fillLists($request, $model, false);
 
             return view('admProfile.edit', $params);
         }

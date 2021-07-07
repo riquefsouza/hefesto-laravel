@@ -3,6 +3,7 @@
 namespace App\Admin\VO;
 
 use DateTime;
+use App\Models\AdmUser;
 
 class UserVO
 {
@@ -89,6 +90,21 @@ class UserVO
         $this->login = $login;
         $this->name = $name;
         $this->active = $active;
+    }
+
+    public function CreateWithAdmUser(AdmUser $admUser)
+    {
+        $this->setId($admUser->getIdAttribute());
+        $this->setActive($admUser->getActiveAttribute());
+        $this->setEmail($admUser->getEmailAttribute());
+        $this->setLogin($admUser->getLoginAttribute());
+        $this->setName($admUser->getNameAttribute());
+        $this->setPassword($admUser->getPasswordAttribute());
+        $this->setAdmIdProfiles($admUser->getAdmIdProfilesAttribute());
+        $this->setUserProfiles($admUser->getUserProfilesAttribute());
+        $this->setCurrentPassword($admUser->getCurrentPasswordAttribute());
+        $this->setNewPassword($admUser->getNewPasswordAttribute());
+        $this->setConfirmNewPassword($admUser->getConfirmNewPasswordAttribute());
     }
 
     public function Clean(): void
