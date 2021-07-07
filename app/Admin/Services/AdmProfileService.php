@@ -3,6 +3,7 @@
 namespace App\Admin\Services;
 
 use App\Models\AdmProfile;
+use App\Models\AdmUser;
 use App\Admin\Services\AdmPageProfileService;
 use App\Admin\Services\AdmUserProfileService;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,7 +11,8 @@ use App\Base\Services\IBaseCrud;
 use App\Base\Pagination\PaginationFilter;
 use App\Base\Pagination\BasePaged;
 use App\Base\Pagination\BasePaging;
-
+use App\Admin\VO\AuthenticatedUserVO;
+use App\Admin\VO\PermissionVO;
 
 class AdmProfileService implements IBaseCrud
 {
@@ -173,4 +175,53 @@ class AdmProfileService implements IBaseCrud
         $model = AdmProfile::find($id);
         return (!is_null($model));
     }
+
+    public function findByGeneral(bool $geral): array
+    {
+        $lista = array();
+        $cgeral = $geral ? 'S' : 'N';
+        $listObj = AdmProfile::where('prf_general', $cgeral)->get();
+        foreach($listObj as $item)
+        {
+            array_push($lista, $item);
+        }
+        return $lista;
+    }
+
+    /**
+     * @return PermissionVO[]|null
+     */
+    public function getPermission(AuthenticatedUserVO $authenticatedUser)
+    {
+        $lista = array();
+        $permission = new PermissionVO();
+
+        $admUser = new AdmUser($authenticatedUser->getUser());
+        $profiles = $this->findProfilesByUser($admUser->getIdAttribute());
+        $perfisGeral = $this->findByGeneral(true);
+        foreach ($perfisGeral as $perfilGeral)
+        {
+            if (!in_array($perfilGeral, $profiles))
+            {
+                array_push($profiles, $perfilGeral);
+            }
+        }
+
+        foreach ($profiles as $profile)
+        {
+            $permission = new PermissionVO();
+
+            $permission->setProfile($profile->toProfileVO());
+
+            foreach ($profile->getAdmPagesAttribute() as $admPage)
+            {
+                array_push($permission->getPages(), $admPage->toPageVO());
+            }
+
+            array_push($lista, $permission);
+        }
+
+        return $lista;
+    }
+
 }

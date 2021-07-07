@@ -8,6 +8,7 @@ use App\Base\Pagination\BasePaging;
 use App\Base\Services\IBaseCrud;
 use App\Base\Services\IUriService;
 use App\Models\AdmParameter;
+use Exception;
 
 class AdmParameterService implements IBaseCrud
 {
@@ -99,6 +100,20 @@ class AdmParameterService implements IBaseCrud
     {
         $model = AdmParameter::find($id);
         return (!is_null($model));
+    }
+
+    public function getValueByCode(string $scode): string|null
+    {
+        try
+        {
+            $parameter = AdmParameter::where('par_code', $scode)->first();
+
+            return $parameter->getValueAttribute();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 
 }

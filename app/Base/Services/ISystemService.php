@@ -7,26 +7,27 @@ use App\Admin\VO\MenuVO;
 use App\Admin\VO\PageVO;
 use App\Admin\VO\UserVO;
 use App\Admin\VO\AuthenticatedUserVO;
+use Illuminate\Database\Eloquent\Collection;
 
 interface ISystemService {
 
     /**
-     * @return AdmMenu[]|null
+     * @return Collection|null
      */
-    public function findMenuByIdProfiles(array $listaIdProfile, AdmMenu $admMenu);
+    public function findMenuByIdProfiles(array $listaIdProfile, int $admMenuId);
 
     /**
-     * @return AdmMenu[]|null
+     * @return Collection|null
      */
-    public function findAdminMenuByIdProfiles(array $listaIdProfile, AdmMenu $admMenu);
+    public function findAdminMenuByIdProfiles(array $listaIdProfile, int $admMenuId);
 
     /**
-     * @return AdmMenu[]|null
+     * @return Collection|null
      */
     public function findMenuParentByIdProfiles(array $listaIdProfile);
 
     /**
-     * @return AdmMenu[]|null
+     * @return Collection|null
      */
     public function findAdminMenuParentByIdProfiles(array $listaIdProfile);
 

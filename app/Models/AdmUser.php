@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Admin\VO\UserVO;
 
 class AdmUser extends Model
 {
@@ -200,4 +201,18 @@ class AdmUser extends Model
 
         return $this;
     }
+
+    public function toUserVO(): UserVO
+    {
+        $u = new UserVO();
+
+        $u->setId($this->getIdAttribute());
+        //$u->setIp($this->getIpAttribute());
+        $u->setEmail($this->getEmailAttribute());
+        $u->setLogin($this->getLoginAttribute());
+        $u->setName($this->getNameAttribute());
+
+        return $u;
+    }
+
 }

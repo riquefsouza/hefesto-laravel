@@ -165,4 +165,65 @@ class AdmUserService implements IBaseCrud
         $model = AdmUser::find($id);
         return (!is_null($model));
     }
+
+    /**
+     * @return UserVO[]|null
+     */
+    private function toVO(Collection $listaOrigem)
+    {
+        $lista = array();
+        foreach ($listaOrigem as $item)
+        {
+            array_push($lista, $item->toUserVO());
+        }
+        return $lista;
+    }
+
+    /**
+     * @return AdmUser|null
+     */
+    public function findByLogin(string $login): AdmUser|null
+    {
+        $obj = $this->findOneUserByLogin($login);
+        $this->setTransient($obj);
+
+        return $obj;
+    }
+
+    public function findAdmUserByLikeEmail(string $email)
+    {
+        $listObj = AdmUser::where('usu_email', $email)->get();
+        $this->setTransientList($listObj);
+
+        return $listObj;
+    }
+
+    /**
+     * @return UserVO[]|null
+     */
+    public function findByLikeEmail(string $email)
+    {
+        $listaOrigem = $this->findAdmUserByLikeEmail($email);
+        $lista = $this->toVO($listaOrigem);
+
+        return $lista;
+    }
+
+    public function getUser(string $login, string $name, string $email, bool $auditar): AdmUser|null
+    {
+        $user = new AdmUser();
+        $user->setIdAttribute(-1);
+        $user->setLogin($login);
+        $user->setName($name);
+        $user->setEmail($email);
+        //$user->setIp = ;
+
+        if ($auditar)
+        {
+            $this->Insert($user);
+        }
+
+        return $user;
+    }
+
 }
