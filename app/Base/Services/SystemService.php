@@ -228,7 +228,8 @@ class SystemService implements ISystemService
     /**
      * @return MenuVO[]|null
      */
-    public function findMenuParentByProfile(array $listaIdProfile){
+    public function findMenuParentByProfile(array $listaIdProfile)
+    {
         $listaMenuParent = $this->findMenuParentByIdProfiles($listaIdProfile);
         return $this->serviceMenu->toListMenuVO($listaMenuParent);
     }
@@ -236,7 +237,8 @@ class SystemService implements ISystemService
     /**
      * @return MenuVO[]|null
      */
-    public function findAdminMenuParentByProfile(array $listaIdProfile){
+    public function findAdminMenuParentByProfile(array $listaIdProfile)
+    {
         $listaAdminMenuParent = $this->findAdminMenuParentByIdProfiles($listaIdProfile);
         return $this->serviceMenu->toListMenuVO($listaAdminMenuParent);
     }

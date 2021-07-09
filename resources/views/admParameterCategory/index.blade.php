@@ -6,7 +6,7 @@ List Parameter Categories
 
 @section('content')
 
-<form id="formListAdmParameterCategory" style="padding: 5px;" action="/admParameterCategory" method="get">
+<form id="formListAdmParameterCategory" style="padding: 5px;" action="{{ route("listAdmParameterCategory") }}" method="get">
 
     <div class="card">
         <div class="card-header"

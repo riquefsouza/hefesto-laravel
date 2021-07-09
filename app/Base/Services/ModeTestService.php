@@ -65,6 +65,7 @@ class ModeTestService implements IModeTestService
         {
             $lista = json_decode($valor);
         }
+
         return $lista;
     }
 
@@ -82,8 +83,8 @@ class ModeTestService implements IModeTestService
 
         foreach ($lista as $vo)
         {
-            if($vo->getActive() === true &&
-                $vo->getLogin() === $authenticatedUser->getUserName())
+            if($vo->ativo &&
+                $vo->login === $authenticatedUser->getUserName())
             {
                 $mtvo = $vo;
                 break;
@@ -95,8 +96,9 @@ class ModeTestService implements IModeTestService
             $authenticatedUser->setModeTestLogin($authenticatedUser->getUserName());
 
             $svirtual = $mtvo->getLoginVirtual();
+
             if (strlen($svirtual) > 0) {
-                return $this->mountAuthenticatedUser($this->systemService, $userVO,
+                return $this->mountAuthenticatedUser($systemService, $userVO,
                     $authenticatedUser, $usuarioLDAP);
             }
         }
@@ -115,7 +117,7 @@ class ModeTestService implements IModeTestService
         $authenticatedUser->setEmail($user->getEmail());
         $authenticatedUser->setListPermission($this->profileService->getPermission($authenticatedUser));
 
-        if (count($authenticatedUser->getListPermission) > 0)
+        if (count($authenticatedUser->getListPermission()) > 0)
         {
 
             $listaIdPerfis = array();
@@ -124,9 +126,9 @@ class ModeTestService implements IModeTestService
                 array_push($listaIdPerfis, $permissao->getProfile()->getId());
             }
 
-            $authenticatedUser->setListMenus($this->systemService->findMenuParentByProfile($listaIdPerfis));
+            $authenticatedUser->setListMenus($systemService->findMenuParentByProfile($listaIdPerfis));
 
-            $authenticatedUser->setListAdminMenus($this->systemService->findAdminMenuParentByProfile($listaIdPerfis));
+            $authenticatedUser->setListAdminMenus($systemService->findAdminMenuParentByProfile($listaIdPerfis));
         }
         else
         {

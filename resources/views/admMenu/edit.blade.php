@@ -6,7 +6,7 @@ Edit Menu
 
 @section('content')
 
-<form id="formEditAdmMenu" style="padding: 5px;" method="post" action="/admPage/save">
+<form id="formEditAdmMenu" style="padding: 5px;" method="post" action="{{ route("saveAdmMenu") }}">
 
     @csrf
 

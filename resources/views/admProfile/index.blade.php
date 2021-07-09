@@ -6,7 +6,7 @@ List Profiles
 
 @section('content')
 
-<form id="formListAdmProfile" style="padding: 5px;" action="/admProfile" method="get">
+<form id="formListAdmProfile" style="padding: 5px;" action="{{ route("listAdmProfile") }}" method="get">
 
     <div class="card">
         <div class="card-header" style="font-weight: bold;font-size: large;">

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use App\Admin\VO\MenuVO;
 
 class AdmMenu extends Model
 {
@@ -126,5 +127,40 @@ class AdmMenu extends Model
         $this->admSubMenus = $admSubMenus;
 
         return $this;
+    }
+
+    private function getNomeRecursivo(AdmMenu $m): string
+    {
+        return $m->getAdmPageAttribute() == null ? $m->getDescriptionAttribute()
+                : ($m->getAdmMenuParentAttribute() != null ? $this->getNomeRecursivo($m->getAdmMenuParentAttribute())
+                . " -> " . $m->getDescriptionAttribute() : "");
+    }
+
+    public function nomeRecursivo(): string
+    {
+        return $this->getNomeRecursivo($this);
+    }
+
+    public function toMenuVO(): MenuVO
+    {
+        $m = new MenuVO();
+
+        $m->setId($this->getIdAttribute());
+        $m->setDescription($this->getDescriptionAttribute());
+        $m->setOrder($this->getOrderAttribute());
+        $m->setIdPage($this->getIdPageAttribute());
+        if ($this->getAdmPageAttribute() != null)
+        {
+            $m->setPage($this->getAdmPageAttribute()->toPageVO());
+        }
+        if ($this->getAdmSubMenus() != null)
+        {
+            foreach ($this->getAdmSubMenus() as $admSubMenu)
+            {
+                array_push($m->getSubMenus(), $admSubMenu->toMenuVO());
+            }
+        }
+
+        return $m;
     }
 }

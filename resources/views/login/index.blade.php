@@ -28,10 +28,9 @@ Login
             <div class="card-header" style="font-weight: normal;">{{ $messages["login.title"] }}</div>
             <div class="card-body">
 
-                <form name="formLogin" method="post" action="/login/login">
+                <form name="formLogin" method="post" action="/login/enter">
 
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" />
+                    @csrf
 
                     <div class="form-group">
                         <label for="login">{{ $messages["login.username"] }}</label>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Admin\VO\ProfileVO;
 
 class AdmProfile extends Model
 {
@@ -166,4 +167,30 @@ class AdmProfile extends Model
 
         return $this;
     }
+
+    /**
+     * @return ProfileVO
+     */
+    public function toProfileVO(): ProfileVO
+    {
+        $p = new ProfileVO();
+
+        $p->setId($this->getIdAttribute());
+        $p->setAdministrator($this->getAdministratorAttribute());
+        $p->setDescription($this->getDescriptionAttribute());
+        $p->setGeneral($this->getGeneralAttribute());
+
+        foreach ($this->getAdmPagesAttribute() as $admPagina)
+        {
+            array_push($p->getPages(), $admPagina->toPageVO());
+        }
+
+        foreach ($this->getAdmUsersAttribute() as $admUser)
+        {
+            array_push($p->getUsers(), $admUser->toUserVO());
+        }
+
+        return $p;
+    }
+
 }

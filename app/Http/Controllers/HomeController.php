@@ -22,8 +22,10 @@ class HomeController extends BaseController
         $alertMessage = $this->alertMessage;
         $menuItem = $this->menuItem;
         $userLogged = $this->userLogged;
+        $loginError = false;
 
-        return compact('messages', 'alertMessage', 'menuItem', 'userLogged');
+        return compact('messages', 'alertMessage',
+            'menuItem', 'userLogged', 'loginError');
     }
 
     public function index(Request $request)
@@ -38,7 +40,8 @@ class HomeController extends BaseController
         }
         else
         {
-            return view('login.login', $params);
+            //return view('login.index', $params);
+            return redirect()->route('showLogin');
         }
     }
 

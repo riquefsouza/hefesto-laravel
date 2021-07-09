@@ -99,6 +99,16 @@ class AdmUser extends Model
         $this->attributes['usu_active'] = $value;
     }
 
+    public function getActive(): bool
+    {
+        return ($this->attributes['usu_active'] === 'S');
+    }
+
+    public function setActive(bool $value): void
+    {
+        $this->attributes['usu_active'] = ($value === 'S');
+    }
+
     public function getEmailAttribute(): string | null
     {
         return $this->attributes['usu_email'];
@@ -200,6 +210,21 @@ class AdmUser extends Model
         $this->confirmNewPassword = $confirmNewPassword;
 
         return $this;
+    }
+
+    public function CreateFromUserVO(UserVO $vo)
+    {
+        $this->setIdAttribute($vo->getId());
+        $this->setActiveAttribute($vo->getActive());
+        $this->setEmailAttribute($vo->getEmail());
+        $this->setLoginAttribute($vo->getLogin());
+        $this->setNameAttribute($vo->getName());
+        //$this->setPasswordAttribute($vo->getPassword());
+        $this->setAdmIdProfilesAttribute($vo->getAdmIdProfiles());
+        $this->setUserProfilesAttribute($vo->getUserProfiles());
+        $this->setCurrentPasswordAttribute($vo->getCurrentPassword());
+        $this->setNewPasswordAttribute($vo->getNewPassword());
+        $this->setConfirmNewPasswordAttribute($vo->getConfirmNewPassword());
     }
 
     public function toUserVO(): UserVO

@@ -6,7 +6,7 @@ Change Password
 
 @section('content')
 
-<form id="formChangePassword" style="padding: 5px;" method="post" action="/changePassword/save">
+<form id="formChangePassword" style="padding: 5px;" method="post" action="{{ route("saveChangePassword") }}">
 
     @csrf
 

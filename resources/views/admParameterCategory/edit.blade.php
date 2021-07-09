@@ -6,7 +6,7 @@ Edit Parameter Categories
 
 @section('content')
 
-<form id="formEditAdmParameterCategory" style="padding: 5px;" method="post" action="/admParameterCategory/save">
+<form id="formEditAdmParameterCategory" style="padding: 5px;" method="post" action="{{ route("saveAdmParameterCategory") }}">
 
     @csrf
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Admin\VO\PageVO;
 
 class AdmPage extends Model
 {
@@ -116,4 +117,28 @@ class AdmPage extends Model
         return $this;
     }
 
+    public function perfisPage(): string
+    {
+        $ret = "";
+        foreach ($this->admPageProfiles as $item)
+        {
+            $ret = $ret . $item->getAdmProfileAttribute()->getDescription() . ", ";
+        }
+        if ($ret != "")
+        {
+            $ret = substr($ret, 0, strlen($ret) - 2);
+        }
+        return $ret;
+    }
+
+    public function toPageVO(): PageVO
+    {
+        $p = new PageVO();
+
+        $p->setId($this->getIdAttribute());
+        $p->setDescription($this->getDescriptionAttribute());
+        $p->setUrl($this->getUrlAttribute());
+
+        return $p;
+    }
 }

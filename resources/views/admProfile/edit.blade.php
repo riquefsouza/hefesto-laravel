@@ -6,7 +6,7 @@ Edit Profiles
 
 @section('content')
 
-<form id="formEditAdmProfile" style="padding: 5px;" method="post" action="/admProfile/save">
+<form id="formEditAdmProfile" style="padding: 5px;" method="post" action="{{ route("saveAdmProfile") }}">
 
     @csrf
 

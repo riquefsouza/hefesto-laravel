@@ -196,9 +196,11 @@ class AdmProfileService implements IBaseCrud
         $lista = array();
         $permission = new PermissionVO();
 
-        $admUser = new AdmUser($authenticatedUser->getUser());
+        $admUser = new AdmUser();
+        $admUser->CreateFromUserVO($authenticatedUser->getUser());
         $profiles = $this->findProfilesByUser($admUser->getIdAttribute());
         $perfisGeral = $this->findByGeneral(true);
+
         foreach ($perfisGeral as $perfilGeral)
         {
             if (!in_array($perfilGeral, $profiles))

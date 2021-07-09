@@ -23,11 +23,11 @@
 </head>
 <body>
 
-    @if ($userLogged->Active)
+    @if ($userLogged->getActive())
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" id="anchorHomePage" href="~/home"
+                <a class="navbar-brand" id="anchorHomePage" href="{{ route("showHome") }}"
                    style="float: left; height: 50px; padding: 5px 5px; font-size: 14px; text-decoration:none">
                     <span>{{ $messages["main.framework"] }}</span><br>
                     <span>{{ $messages["main.app.title"] }}</span>
@@ -40,15 +40,15 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
 
-                            @foreach ($menu as $menuItem)
+                            @foreach ($menuItem as $menu)
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ $menu->description }}
+                                    {{ $menu->getDescription() }}
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
-                                        @foreach ($submenu as $menu->SubMenus)
-                                            <a class="dropdown-item" href="{{ route($submenu->url) }}">
-                                                {{ $submenu->Description }}
+                                        @foreach ($menu->getSubMenus() as $submenu)
+                                            <a class="dropdown-item" href="{{ url($submenu->getUrl()) }}">
+                                                {{ $submenu->getDescription() }}
                                             </a>
                                         @endforeach
                                     </li>
@@ -71,7 +71,7 @@
                     <div class="d-flex">
                         <span class="icon text-white-50">
                             <i class="fas fa-user fa-sm"></i>
-                            {{ $userLogged->Login }}
+                            {{ $userLogged->getLogin() }}
                         </span>
                     </div>
 

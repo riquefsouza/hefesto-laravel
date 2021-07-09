@@ -165,7 +165,7 @@ class MenuVO
         return $this->page == null;
     }
 
-    public function url(): string|null
+    public function getUrl(): string|null
     {
         return $this->page != null ? $this->page->getUrl() : null;
     }

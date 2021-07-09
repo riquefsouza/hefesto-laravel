@@ -6,7 +6,7 @@ List Users
 
 @section('content')
 
-<form id="formListAdmUser" style="padding: 5px;" action="/admUser" method="get">
+<form id="formListAdmUser" style="padding: 5px;" action="{{ route("listAdmUser") }}" method="get">
 
     <div class="card">
         <div class="card-header" style="font-weight: bold;font-size: large;">

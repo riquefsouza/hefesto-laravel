@@ -6,7 +6,7 @@ List Pages
 
 @section('content')
 
-<form id="formListAdmPage" style="padding: 5px;" action="/admPage" method="get">
+<form id="formListAdmPage" style="padding: 5px;" action="{{ route("listAdmPage") }}" method="get">
 
     <div class="card">
         <div class="card-header" style="font-weight: bold;font-size: large;">

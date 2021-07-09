@@ -6,7 +6,7 @@ Edit Pages
 
 @section('content')
 
-<form id="formEditAdmPage" style="padding: 5px;" method="post" action="/admPage/save">
+<form id="formEditAdmPage" style="padding: 5px;" method="post" action="{{ route("saveAdmPage") }}">
 
     @csrf
 

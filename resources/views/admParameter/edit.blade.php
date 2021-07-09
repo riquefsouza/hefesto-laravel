@@ -6,7 +6,7 @@ Edit Parameters
 
 @section('content')
 
-<form id="formEditAdmParameter" style="padding: 5px;" method="post" action="/admParameter/save">
+<form id="formEditAdmParameter" style="padding: 5px;" method="post" action="{{ route("saveAdmParameter") }}">
 
     @csrf
 

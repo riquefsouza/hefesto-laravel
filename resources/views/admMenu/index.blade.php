@@ -6,7 +6,7 @@ List Menus
 
 @section('content')
 
-<form id="formListAdmMenu" style="padding: 5px;" action="/admMenu" method="get">
+<form id="formListAdmMenu" style="padding: 5px;" action="{{ route("listAdmMenu") }}" method="get">
 
     <div class="card">
         <div class="card-header"
@@ -81,13 +81,13 @@ List Menus
     <ul id="hfstree">
         @foreach ($model as $adminMenu)
             <li>
-                <span class="caret">{{ $adminMenu->getDescriptionAttribute() }}</span>
+                <span class="caret">{{ $adminMenu->getDescription() }}</span>
                 <ul class="nested">
-                    @foreach ($adminMenu->getAdmSubMenus() as $adminSubmenu)
-                        <li name="{{ $adminSubmenu->getIdAttribute() }}">
+                    @foreach ($adminMenu->getSubMenus() as $adminSubmenu)
+                        <li name="{{ $adminSubmenu->getId() }}">
                             <span class="nodeText"
-                                  onclick="listAdmMenu.treeNodeClick(this, {{ $adminSubmenu->getIdAttribute() }});">
-                                {{ $adminSubmenu->getDescriptionAttribute() }}
+                                  onclick="listAdmMenu.treeNodeClick(this, {{ $adminSubmenu->getId() }});">
+                                {{ $adminSubmenu->getDescription() }}
                             </span>
                         </li>
                     @endforeach

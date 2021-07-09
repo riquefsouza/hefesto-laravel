@@ -41,8 +41,8 @@ class BaseController extends Controller
 
         if ($authenticatedUser!=null)
         {
-            $authenticatedUser->User->Active = true;
-            $this->userLogged = $authenticatedUser->User;
+            $authenticatedUser->getUser()->setActive(true);
+            $this->userLogged = $authenticatedUser->getUser();
 
             $listMenus = $authenticatedUser->getListAdminMenus();
 
@@ -50,7 +50,7 @@ class BaseController extends Controller
         } else
         {
             $this->userLogged = new UserVO();
-            $this->userLogged->Active = false;
+            $this->userLogged->setActive(false);
 
             $this->menuItem = array();
         }

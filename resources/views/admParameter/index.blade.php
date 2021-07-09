@@ -6,7 +6,7 @@ List Parameters
 
 @section('content')
 
-<form id="formListAdmParameter" style="padding: 5px;" action="/admParameter" method="get">
+<form id="formListAdmParameter" style="padding: 5px;" action="{{ route("listAdmParameter") }}" method="get">
 
     <div class="card">
         <div class="card-header" style="font-weight: bold;font-size: large;">

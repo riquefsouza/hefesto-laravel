@@ -6,7 +6,7 @@ Edit User
 
 @section('content')
 
-<form id="formEditAdmUser" style="padding: 5px;" method="post" action="/admUser/save">
+<form id="formEditAdmUser" style="padding: 5px;" method="post" action="{{ route("saveAdmUser") }}">
 
     @csrf
 
@@ -65,8 +65,13 @@ Edit User
             <div class="row">
                 <div class="col-md-3 form-group mb-2">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="active" name="active"
-                            value="{{ $model->getActiveAttribute() }}" />
+                        @if ($model->getActive())
+                            <input class="form-check-input" type="checkbox" id="active" name="active"
+                                checked value="{{ $model->getActiveAttribute() }}" />
+                        @else
+                            <input class="form-check-input" type="checkbox" id="active" name="active"
+                                value="{{ $model->getActiveAttribute() }}" />
+                        @endif
                         <label class="form-check-label" for="active">
                             &nbsp;{{ $messages["editAdmUser.active"] }}
                         </label>

@@ -23,9 +23,9 @@ class ModeTestVO implements IComparable
 
     public function __construct()
     {
-        $this->Active = false;
-        $this->Login = "";
-        $this->LoginVirtual = "";
+        $this->active = false;
+        $this->login = "";
+        $this->loginVirtual = "";
     }
 
     public function Create(bool $active, string $login, string $loginVirtual)
