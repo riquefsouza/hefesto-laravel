@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Autenticador;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//, 'middleware' => 'App\Http\Middleware\Autenticador'
 $router->group(['prefix' => '/'], function () use ($router) {
 
     $router->get('', 'App\Http\Controllers\HomeController@index')->name('showHome');
